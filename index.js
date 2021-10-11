@@ -1,28 +1,25 @@
-import express from "express";
-import config from "config";
-import mongoose from "mongoose";
-
-const app = express()
-const PORT = config.get('port') || 8000;
-const MONGOURL = config.get('mongoUrl');
+const express = require('express');
+const mongoose = require("mongoose");
+require('dotenv/config')
 
 
-app.get('/', (req,res)=>{
-    res.send(`<h1>server started on port: ${PORT} </h1>`)
+const app = express();
+
+const PORT = process.env.PORT || 3001;
+const DB_CONNECT = process.env.DB_CONNECTION || 'mongodb://localhost:test';
+
+app.get('/', (req, res) => {
+    res.send(`<h1>Test page1</h1>`)
+})
+app.get('/page', (req, res) => {
+    res.send(`<h1>Test page2</h1>`)
 })
 
+mongoose.connect(DB_CONNECT, {
+    useNewUrlParser: true
 
-async function start(){
-    try{
-        await mongoose.connect(MONGOURL, {
-            useNewUrlParser: true,
-        })
-        app.listen(PORT, ()=>{
-            console.log(`server started on port: ${PORT}`)
-        })
-    }catch (e) {
-        console.log(`server has error ${e.message}`)
-        process.exit(1)
-    }
-}
-start()
+    }, () => {
+        console.log('connect to mongoDB')
+    });
+
+app.listen(PORT)
