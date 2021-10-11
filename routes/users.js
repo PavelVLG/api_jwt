@@ -1,13 +1,14 @@
-const express =require('express');
-const router = express.Router();
+const Router = require('express').Router;
+const router = new Router();
+const userController = require('../controllers/user-controller')
 
-router.get('/', (req, res) => {
-    res.send(`<h1>user js</h1>`)
-})
 
-router.get('/auth', (req, res) => {
-    res.send(`<h1>user auth</h1>`)
-})
+router.post('/registration', userController.registration)
+router.post('/login', userController.login)
+router.post('/logout',userController.logout)
+router.post('/activate/:link', userController.activate)
+router.post('/refresh', userController.refresh)
+router.post('/users', userController.getUsers)
 
 
 
