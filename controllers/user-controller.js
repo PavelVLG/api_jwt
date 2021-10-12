@@ -41,7 +41,7 @@ class UserController {
 
     async getUsers(req, res, next) {
         try {
-            res.json(['arbalet', 'parabelum'])
+            res.json(['VScode', 'PHPstorm'])
         } catch (err) {
 
         }

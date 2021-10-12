@@ -8,6 +8,11 @@ const cookieParser = require('cookie-parser');
 require('dotenv/config')
 
 const app = express();
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
+
+
 
 const booksRoute = require('./routes/books');
 const usersRoute = require('./routes/users');
@@ -20,9 +25,6 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3001;
 const DB_CONNECT = process.env.DB_CONNECTION || 'mongodb://localhost:test';
 
-app.use(express.json());
-app.use(cookieParser());
-app.use(cors());
 
 
 const start = async () => {
