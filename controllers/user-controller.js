@@ -9,8 +9,9 @@ class UserController {
             res.cookies('refreshToken', userData.refreshToken, {maxAge: 42*24*60*60*1000, httpOnly: true})
             return res.json(userData)
         } catch (err) {
+            res('asd')
             console.log(err, 'err controller')
-            const customErr = 'error ebana rot'
+            const customErr = 'error custom'
             return customErr;
 
         }
