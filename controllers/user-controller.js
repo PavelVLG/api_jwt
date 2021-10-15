@@ -6,10 +6,12 @@ class UserController {
         try {
             const {email, password} = req.body;
             const userData = await userServices.registration(email, password)
-            res.cookies('refreshToken', userData.refreshToken, {maxAge: 42*24*60*60*100, httpOnly: true})
+            res.cookies('refreshToken', userData.refreshToken, {maxAge: 42*24*60*60*1000, httpOnly: true})
             return res.json(userData)
         } catch (err) {
             console.log(err, 'err controller')
+            const customErr = 'error ebana rot'
+            return customErr;
 
         }
     }

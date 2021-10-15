@@ -33,7 +33,7 @@ const start = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true
         }, () => {
-            console.log(`connect to mongoDB`)
+            console.log(`connected to mongoDB`)
         });
         app.listen(PORT, () => console.log(`run server on port ${PORT} `))
     } catch (err) {
