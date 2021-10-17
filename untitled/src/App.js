@@ -26,7 +26,7 @@ function App() {
 
     const Question = () => {
         return (
-            <div style={{border: '1px solid black', maxWidth: '200px', margin: '0 auto', borderRadius: '5px'}}>
+            <div style={{border: '1px solid black', maxWidth: '200px', margin: '0 auto', borderRadius: '5px', padding: '3px 3px 3px 3px'}}>
                 <p>
                     {view[0]}
                 </p>
@@ -41,14 +41,16 @@ function App() {
                 </p>
             </div>)
     }
-    const log = () => {
-        console.table(state)
-    }
+
     useEffect(() => {
         setAnswerVisibility(false)
         console.table(state)
         console.log(view)
     }, [state, view])
+
+
+
+
     return (
         <div className="App">
             <div style={{width: '300px', margin: '0 auto', display: 'flex', justifyContent: "space-between" }}>
