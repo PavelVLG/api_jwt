@@ -27,9 +27,9 @@ function App() {
 
     const Question = () => {
         return (
-            <Box component="span" sx={{p: 2, border: '1px dashed grey'}}>
+            <p>
                 {view[0]}
-            </Box>
+            </p>
         )
     }
     const Answer = () => {
