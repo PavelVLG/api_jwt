@@ -7,27 +7,26 @@ import {qwestions} from './mock';
 
 function App() {
     const [state, setState] = useState([...qwestions])
-    const [index, setIndex] = useState(state.length - 1)
-    const [view, setView] = useState(state[index])
+    const [view, setView] = useState(state[state.length - 1])
+
 
     const repeat = () => {
-        const value = Math.floor(Math.random() * state.length)
-        setIndex(value)
+
+        setView(state[Math.floor(Math.random() * state.length)])
+
     }
     const success = () => {
-        const value = [...state.slice(0, index), ...state.slice(index + 1, state.length)]
-        setState(value)
-        repeat()
+
+
+
+        const arr = state.filter(item => item !== view)
+        setState(arr)
     }
 
-
-    useEffect(() => {
-        if (state[0] != null) {
-            setView(state[index])
-        } else {
-            setView('Success!!')
-        }
-    }, [state, index])
+    const log = () => {
+        console.log('state', state)
+        console.log('view', view)
+    }
 
     return (
         <div className="App">
@@ -36,16 +35,16 @@ function App() {
                 <Button variant="contained" color="secondary" onClick={() => repeat()}>на повтор</Button>
             </div>
             <div style={{marginTop: "16px"}}>
-                <Button variant="contained" >ответ</Button>
+                <Button variant="contained">ответ</Button>
             </div>
             <div style={{marginTop: "34px"}}>
                 <Box component="span" sx={{p: 2, border: '1px dashed grey'}}>
                     {view[0]}
                 </Box>
             </div>
-            <div style={{marginTop: "34px"}}>
+            <div style={{marginTop: "64px"}}>
                 <Box component="span" sx={{p: 2, border: '1px dashed grey'}}>
-                    {view[1] ? view[1] : 'ответ'}
+                    {view[1]}
                 </Box>
 
             </div>
