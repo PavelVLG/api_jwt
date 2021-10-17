@@ -1,42 +1,51 @@
 import './App.css';
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import {useState} from "react";
 import {qwestions} from './mock';
 
 function App() {
     const [state, setState] = useState([...qwestions])
-    const [view, setView] = useState(state[state.length - 1])
-
+    const [view, setView] = useState(() => state[state.length - 1])
+    const [answerVisibility, setanswerVisibility] = useState(false)
 
     const repeat = () => {
         setView(state[Math.floor(Math.random() * state.length)])
     }
-    const success = () => {
+    const success = async () => {
 
-          if(state.length > 1){
-              const arr = state.filter(item => item !== view)
-              setState(arr)
-              repeat()
+        if (state.length > 1) {
+            setState(state.filter(item => item !== view))
+            repeat()
 
-          }else{
-              setView(['ok','ok'])
-          }
+        } else {
+            setView(['ok', 'ok'])
+        }
 
     }
 
-    const log = () => {
-        console.log('state', state)
-        console.log('view', view)
-    }
-const Qwestion = ()=>{
+
+    const Question = () => {
         return (
             <Box component="span" sx={{p: 2, border: '1px dashed grey'}}>
                 {view[0]}
             </Box>
         )
-}
+    }
+    const Answer = () => {
+        return !answerVisibility ? 'скрыто' : (<Box component="span" sx={{p: 2, border: '1px dashed grey'}}>
+            {view[1]}
+        </Box>)
+
+    }
+    const log = () => {
+        console.table(state)
+    }
+    useEffect(() => {
+        setanswerVisibility(false)
+        console.table(state)
+        console.log(view)
+    }, [state, view])
     return (
         <div className="App">
             <div>
@@ -44,14 +53,14 @@ const Qwestion = ()=>{
                 <Button variant="contained" color="secondary" onClick={() => repeat()}>на повтор</Button>
             </div>
             <div style={{marginTop: "16px"}}>
-                <Button variant="contained">ответ</Button>
+                <Button variant="contained" onClick={()=> setanswerVisibility(true)}>ответ</Button>
             </div>
             <div style={{marginTop: "34px"}}>
-                <Qwestion/>
+                <Question/>
             </div>
             <div style={{marginTop: "64px"}}>
                 <Box component="span" sx={{p: 2, border: '1px dashed grey'}}>
-                 {/*   {view[1] ? view[1] : 'Кончились'}*/}
+                    <Answer/>
                 </Box>
 
             </div>
