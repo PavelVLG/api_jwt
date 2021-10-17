@@ -1,13 +1,12 @@
 import './App.css';
 import React, {useEffect, useState} from "react";
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import {qwestions} from './mock';
 
 function App() {
     const [state, setState] = useState([...qwestions])
     const [view, setView] = useState(() => state[state.length - 1])
-    const [answerVisibility, setanswerVisibility] = useState(false)
+    const [answerVisibility, setAnswerVisibility] = useState(false)
 
     const repeat = () => {
         setView(state[Math.floor(Math.random() * state.length)])
@@ -27,42 +26,43 @@ function App() {
 
     const Question = () => {
         return (
-            <p>
-                {view[0]}
-            </p>
+            <div style={{border: '1px solid black', maxWidth: '200px', margin: '0 auto', borderRadius: '5px'}}>
+                <p>
+                    {view[0]}
+                </p>
+            </div>
         )
     }
     const Answer = () => {
-        return !answerVisibility ? 'скрыто' : (<Box component="span" sx={{p: 2, border: '1px dashed grey'}}>
-            {view[1]}
-        </Box>)
-
+        return !answerVisibility ? 'скрыто' : (
+            <div style={{border: '1px solid black', maxWidth: '94%', margin: '0 auto', borderRadius: '5px', marginBottom: '16px', padding: '3px 3px 3px 3px'}}>
+                <p>
+                    {view[1]}
+                </p>
+            </div>)
     }
     const log = () => {
         console.table(state)
     }
     useEffect(() => {
-        setanswerVisibility(false)
+        setAnswerVisibility(false)
         console.table(state)
         console.log(view)
     }, [state, view])
     return (
         <div className="App">
-            <div>
+            <div style={{width: '300px', margin: '0 auto', display: 'flex', justifyContent: "space-between" }}>
                 <Button variant="contained" color="success" onClick={() => success()}>верный ответ</Button>
                 <Button variant="contained" color="secondary" onClick={() => repeat()}>на повтор</Button>
             </div>
             <div style={{marginTop: "16px"}}>
-                <Button variant="contained" onClick={()=> setanswerVisibility(true)}>ответ</Button>
+                <Button variant="contained" onClick={() => setAnswerVisibility(true)}>ответ</Button>
             </div>
             <div style={{marginTop: "34px"}}>
                 <Question/>
             </div>
             <div style={{marginTop: "64px"}}>
-                <Box component="span" sx={{p: 2, border: '1px dashed grey'}}>
                     <Answer/>
-                </Box>
-
             </div>
         </div>
     );
