@@ -62,7 +62,8 @@ class AuthController {
 
     async getUsers(req, res) {
         try {
-            res.json('Your have this message because your connect with server api')
+            const users = await User.find()
+            res.json(users)
         } catch (err) {
             res.status(400).json({message: 'getUser error'})
         }
