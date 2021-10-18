@@ -2,10 +2,14 @@ const User = require('../models/User')
 const Role = require('../models/Role')
 const bcrypt = require('bcrypt')
 const {log} = require("nodemon/lib/utils");
-
+const  { validationResult } = require('express-validator')
 class AuthController {
     async registrations(req, res) {
         try {
+            const errors = validationResult(req)
+            if (!errors.isEmpty()){
+                return  res.status(400).json({message: "Ошибка на клиенте", errors})
+            }
             const {username, password} = await req.body;
             const candidate = await User.findOne({username})
             console.log("candidate:", candidate)
@@ -20,8 +24,8 @@ class AuthController {
                 await user.save()
                 return await res.json({message: "Пользователь успешно зарегистрирован"})
             }
-        } catch (e) {
-            console.log(e)
+        } catch (err) {
+            console.log(err)
             res.status(400).json({message: 'Registration error'})
         }
     }
