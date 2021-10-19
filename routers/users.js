@@ -9,7 +9,9 @@ router.post('/registration', [
         check('password', 'пароль должен быть более 4 и менее 14 символов ').isLength({min: 4, max: 10})
     ],
     controller.registrations)
+
 router.post('/login', controller.login)
-router.get('/',/* middleware,*/ controller.getUsers)
+router.post('/refresh', controller.refresh)
+router.get('/',controller.getUsers)
 
 module.exports = router;

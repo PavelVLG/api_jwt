@@ -15,6 +15,8 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use('/api', authUser)
+app.use('/', (req, res) => {
+    res.json( `running on port ${PORT}. DB Mongodb`)})
 
 
 const start = async () => {
